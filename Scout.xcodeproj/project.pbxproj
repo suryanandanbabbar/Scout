@@ -6,14 +6,39 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D8A4A0C92E5DD7CB00F21DA2 /* ScoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4A0C82E5DD7CB00F21DA2 /* ScoutApp.swift */; };
+		D8A4A0CD2E5DD7CC00F21DA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A4A0CC2E5DD7CC00F21DA2 /* Assets.xcassets */; };
+		D8A4A0D62E5DD7EF00F21DA2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D8A4A0D32E5DD7EF00F21DA2 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D8A4A0C52E5DD7CB00F21DA2 /* Scout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8A4A0C82E5DD7CB00F21DA2 /* ScoutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoutApp.swift; sourceTree = "<group>"; };
+		D8A4A0CC2E5DD7CC00F21DA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D8A4A0D32E5DD7EF00F21DA2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D8A4A1012E5DDF7800F21DA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D8A4A0C72E5DD7CB00F21DA2 /* Scout */ = {
+		D8A4A0E32E5DD8EB00F21DA2 /* Services */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Scout;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D8A4A0E72E5DD8EF00F21DA2 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D8A4A0EB2E5DD8F400F21DA2 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D8A4A0EF2E5DD98400F21DA2 /* Utils */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +57,14 @@
 		D8A4A0BC2E5DD7CB00F21DA2 = {
 			isa = PBXGroup;
 			children = (
-				D8A4A0C72E5DD7CB00F21DA2 /* Scout */,
+				D8A4A1012E5DDF7800F21DA2 /* Info.plist */,
+				D8A4A0EB2E5DD8F400F21DA2 /* Models */,
+				D8A4A0E32E5DD8EB00F21DA2 /* Services */,
+				D8A4A0EF2E5DD98400F21DA2 /* Utils */,
+				D8A4A0E72E5DD8EF00F21DA2 /* Views */,
+				D8A4A0CC2E5DD7CC00F21DA2 /* Assets.xcassets */,
+				D8A4A0C82E5DD7CB00F21DA2 /* ScoutApp.swift */,
+				D8A4A0D32E5DD7EF00F21DA2 /* README.md */,
 				D8A4A0C62E5DD7CB00F21DA2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +93,10 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D8A4A0C72E5DD7CB00F21DA2 /* Scout */,
+				D8A4A0E32E5DD8EB00F21DA2 /* Services */,
+				D8A4A0E72E5DD8EF00F21DA2 /* Views */,
+				D8A4A0EB2E5DD8F400F21DA2 /* Models */,
+				D8A4A0EF2E5DD98400F21DA2 /* Utils */,
 			);
 			name = Scout;
 			packageProductDependencies = (
@@ -109,6 +144,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8A4A0D62E5DD7EF00F21DA2 /* README.md in Resources */,
+				D8A4A0CD2E5DD7CC00F21DA2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8A4A0C92E5DD7CB00F21DA2 /* ScoutApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +293,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7C3PXBF72H;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -283,7 +322,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7C3PXBF72H;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
