@@ -14,23 +14,27 @@ struct ContentView: View {
             VStack(spacing: 16) {
                 HStack {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(shazam.lastMatch?.title ?? "Listening...")
-                            .font(.title2).bold()
+//                        Text(shazam.lastMatch?.title ?? "Listening...")
+//                            .font(.title2).bold()
                         Text(shazam.lastMatch?.artist ?? "")
                             .font(.subheadline).foregroundStyle(.secondary)
                     }
-                    Spacer()
-                    Button(isListening ? "Stop" : "Listen") {
+                    Button(action: {
                         toggleListening()
+                    }) {
+                        Image(systemName: "mic")
+                            .font(.system(size: 30)) 
+                            .foregroundColor(isListening ? .red : .blue)
+                            .padding()
+                            .background(Circle().fill(Color.gray.opacity(0.2)))
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(PlainButtonStyle())
                 }
                 
                 if let chord = chorder.currentChord {
                     HStack {
                         Text("Chord:")
                         Text(chord.displayName).font(.title).bold()
-                        Spacer()
                         Text(String(format: "conf %.2f", chord.confidence))
                             .font(.footnote).foregroundStyle(.secondary)
                     }
@@ -65,13 +69,13 @@ struct ContentView: View {
                 }
                 .disabled(shazam.lastMatch == nil)
                 
-                Spacer()
             }
             .padding()
             .navigationTitle("Scout")
             .task {
                 await lyrics.requestAuthorization()
             }
+            Spacer()
         }
     }
     
