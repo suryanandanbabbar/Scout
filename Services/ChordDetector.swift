@@ -173,3 +173,8 @@ final class ChordDetector: ObservableObject {
 fileprivate extension Int {
     var mod12: Int { let m = self % 12; return m >= 0 ? m : m + 12 }
 }
+
+
+
+
+

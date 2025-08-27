@@ -2,7 +2,7 @@ import Foundation
 
 struct DetectedChord: Identifiable, Equatable {
     let id = UUID()
-    let root: String    // e.g., C, D#, F
+    let root: String    // C, D#, F
     let quality: String // "maj" or "min"
     let confidence: Double
     
