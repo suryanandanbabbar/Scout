@@ -40,7 +40,7 @@ struct PianoKeyboardView: View {
                                     let blackPC = (pc + 1) % 12
                                     let midi = octave*12 + blackPC
                                     RoundedRectangle(cornerRadius: 4)
-                                        .fill(activeMIDINotes.contains(midi) ? .black.opacity(0.8) : .black)
+                                        .fill(activeMIDINotes.contains(midi) ? .black.opacity(0.5) : .black)
                                         .frame(width: 16, height: 80)
                                         .offset(x: 12, y: 0)
                                         .shadow(radius: 1)
