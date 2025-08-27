@@ -55,3 +55,7 @@ struct PianoKeyboardView: View {
         .animation(.easeOut(duration: 0.08), value: activeMIDINotes)
     }
 }
+
+#Preview {
+    PianoKeyboardView()
+}

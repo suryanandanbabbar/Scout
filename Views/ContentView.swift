@@ -23,8 +23,8 @@ struct ContentView: View {
                         toggleListening()
                     }) {
                         Image(systemName: "mic")
-                            .font(.system(size: 30)) 
-                            .foregroundColor(isListening ? .red : .blue)
+                            .font(.system(size: 30))
+                            .foregroundColor(isListening ? .red : .blue) // red when recording
                             .padding()
                             .background(Circle().fill(Color.gray.opacity(0.2)))
                     }
@@ -43,7 +43,6 @@ struct ContentView: View {
                     HStack {
                         Text("Note:")
                         Text(note.name).font(.title3).bold()
-                        Spacer()
                         Text(String(format: "%.1f Hz", note.frequency))
                             .font(.footnote).foregroundStyle(.secondary)
                     }
@@ -81,21 +80,29 @@ struct ContentView: View {
     
     private func toggleListening() {
         if isListening {
+            // Stop microphone input
             audio.stop()
             isListening = false
+            print("Stopped listening")
         } else {
             do {
                 try audio.startListening { buffer, when in
                     // Feed both detectors
                     shazam.process(buffer: buffer, at: when)
                     chorder.process(buffer: buffer)
+
                     if let song = shazam.lastMatch {
-                        Task { await lyrics.fetchLyricsIfAvailable(title: song.title, artist: song.artist) }
+                        Task {
+                            await lyrics.fetchLyricsIfAvailable(title: song.title,
+                                                                artist: song.artist)
+                        }
                     }
                 }
                 isListening = true
+                print("Started listening")
             } catch {
                 print("Mic start error: \(error)")
+                isListening = false
             }
         }
     }

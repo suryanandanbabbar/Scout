@@ -2,32 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleName</key>
-    <string>Scout</string>
-    <key>CFBundleIdentifier</key>
-    <string>com.suryanandanbabbar.Scout</string>
-    <key>CFBundleExecutable</key>
-    <string>Scout</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>CFBundleShortVersionString</key>
-    <string>1.0</string>
-    <key>CFBundleVersion</key>
-    <string>1</string>
-    <key>UILaunchStoryboardName</key>
-    <string></string>
-    <key>UIApplicationSceneManifest</key>
-    <dict>
-        <key>UIApplicationSupportsMultipleScenes</key>
-        <true/>
-    </dict>
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-    </array>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Scout uses the microphone to listen and identify music.</string>
-    <key>NSAppleMusicUsageDescription</key>
-    <string>Scout uses Apple Music to fetch lyrics and song metadata.</string>
+	<key>CFBundleName</key>
+	<string>Scout</string>
+	<key>CFBundleIdentifier</key>
+	<string>name.suryanandanbabbar.Scout</string>
+	<key>CFBundleExecutable</key>
+	<string>Scout</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>UILaunchStoryboardName</key>
+	<string></string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+	</dict>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Scout uses the microphone to listen and identify music.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Scout uses Apple Music to fetch lyrics and song metadata.</string>
 </dict>
 </plist>

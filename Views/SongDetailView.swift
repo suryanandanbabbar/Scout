@@ -25,3 +25,17 @@ struct SongDetailView: View {
         .navigationTitle("Details")
     }
 }
+
+#Preview {
+    SongDetailView(
+        song: SongInfo(
+            title: "Guru ka Darshan",
+            artist: "Radha Soami",
+            appleMusicURL: URL(string: "https://music.apple.com/us/album/shape-of-you/1193701079?i=1193701359")
+        ),
+        lyrics: """
+        Guru ka darshan dekh dekh jeevan
+        Guru ke charan dhoye dhoye peevan...
+        """
+    )
+}
