@@ -33,25 +33,9 @@
 		D8A4A1012E5DDF7800F21DA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		D8A84B6F2E61B12700E38129 /* Exceptions for "Services" folder in "Embed Frameworks" phase from "Scout" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			attributesByRelativePath = {
-				ACRCloudiOSSDK.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-			};
-			buildPhase = D8A84B6E2E61B12700E38129 /* Embed Frameworks */;
-			membershipExceptions = (
-				ACRCloudiOSSDK.xcframework,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D8A4A0E32E5DD8EB00F21DA2 /* Services */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				D8A84B6F2E61B12700E38129 /* Exceptions for "Services" folder in "Embed Frameworks" phase from "Scout" target */,
-			);
 			path = Services;
 			sourceTree = "<group>";
 		};

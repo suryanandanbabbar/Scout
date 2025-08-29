@@ -1,10 +1,9 @@
 # Scout (iOS, SwiftUI + ShazamKit + DSP)
 
 **What it does**
-- Listens via the microphone, identifies the song using **ShazamKit**.
+- Listens via the microphone.
 - Estimates **chords** and **piano notes** in real-time using lightweight on-device DSP (YIN pitch tracker + chromagram + chord template matching).
-- Fetches **lyrics** via **MusicKit** when the user is an Apple Music subscriber and authorization is granted (falls back gracefully).
-- Shows the **song title/artist**, current **chord**, detected **notes**, **lyrics**, and a **piano keyboard animation**.
+- Displays the current **chord**, detected **note**, a **piano keyboard animation**, and a **live audio visualizer**.
 
 > This is a complete, ready-to-open SwiftUI project skeleton. Open in Xcode 15+ (iOS 17+ target recommended). Enable capabilities in the steps below.
 
@@ -20,34 +19,26 @@
 
 3. **Capabilities / Info**  
    - *Microphone*: Add **`NSMicrophoneUsageDescription`** to Info with a clear string (already added in `Info.plist`).  
-   - *Music & Shazam*: Add **Apple Music** and **ShazamKit** capabilities in Signing & Capabilities. Also ensure **`NSAppleMusicUsageDescription`** is present (already added).
 
-4. **MusicKit Developer Token (optional but recommended for lyrics)**  
-   - Create a developer token (Apple Developer account).  
-   - Set it at runtime in `LyricsService.swift` (see `// TODO: Set your developer token`).  
-   - Without a token, song matching still works; lyrics may be unavailable.
-
-5. **Run on a real device** for mic + audio; Simulator has limited mic behavior.
+4. **Run on a real device** for mic + audio; Simulator has limited mic behavior.
 
 ---
 
 ## Architecture
 
-- `Sources/Models` — lightweight data models (notes/chords/song info).
-- `Sources/Services` — audio capture (AVAudioEngine), Shazam matching (ShazamKit), DSP (pitch + chroma + chord), lyrics (MusicKit).
-- `Sources/Views` — SwiftUI screens and piano keyboard animation.
-- `Sources/Utils` — helpers, smoothing, circular buffers, frequency maps.
+- `Models` — Lightweight data models (notes/chords).
+- `Services` — Handles audio capture (`AudioManager`) and Digital Signal Processing for chord/note detection (`ChordDetector`).
+- `Views` — All SwiftUI screens, including the main content view, piano keyboard, and audio visualizer.
+- `Utils` — Helper files for DSP configuration and smoothing audio data.
 
-DSP is deliberately simple and efficient (44.1kHz mono). It’s not studio-grade, but works for common pop/rock harmonies and sustained notes.
+The DSP is designed to be simple and efficient, making it suitable for real-time analysis on a mobile device.
 
 ---
 
-## Known Limitations / Notes
+## Known Limitations
 
-- **Lyrics**: Availability depends on Apple Music catalog and user’s subscription. Dev token + user authorization required. Falls back if not available.
-- **Chords**: Estimation uses a classical chroma/template approach; rapid modulations or complex jazz voicings will be approximated.
-- **Latency**: Kept low via 2048-sample hop (~46ms at 44.1kHz). Tune `DSPConfig` to trade accuracy vs. latency.
-- **Legal**: Ensure your usage complies with Apple Music & ShazamKit terms for production deployment.
+- **Chords**: The detection uses a classical chroma/template approach. It works well for common pop and rock harmonies but may approximate more complex jazz voicings or rapid modulations.
+- **Latency**: Tuned for low latency to feel responsive. You can adjust the settings in `DSPConfig.swift` to trade accuracy for lower latency if needed.
 
 ---
 
@@ -62,31 +53,24 @@ Scout/
   Assets.xcassets/
   Info.plist
   ScoutApp.swift
-  Sources/
     Models/
       DetectedNote.swift
       DetectedChord.swift
-      SongInfo.swift
     Services/
       AudioManager.swift
-      ShazamMatcher.swift
       ChordDetector.swift
-      LyricsService.swift
     Utils/
       DSP.swift
-      MusicHelpers.swift
       Smoother.swift
     Views/
       ContentView.swift
       PianoKeyboardView.swift
-      SongDetailView.swift
+      SplashScreenView.swift
 ```
 
 ---
 
 ## Attribution
-- Pitch detection: YIN variant.
-- Chroma: vDSP FFT + pitch-class aggregation.
+- Pitch detection: A simplified YIN-like algorithm.
+- Chroma generation: Apple's Accelerate framework (vDSP) for FFT, followed by pitch-class aggregation.
 - Chord templates: 12 major + 12 minor triad profiles.
-- ShazamKit for identification.
-- MusicKit for catalog metadata & lyrics.
