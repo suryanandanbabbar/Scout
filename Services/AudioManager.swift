@@ -1,18 +1,17 @@
 import Foundation
 import AVFoundation
+import Accelerate
 
 final class AudioManager: ObservableObject {
     static let shared = AudioManager()
     private let engine = AVAudioEngine()
     private let session = AVAudioSession.sharedInstance()
+    
+    private let levelSmoother = ExponentialSmoother(alpha: 0.2)
 
-    private var bufferHandler: ((AVAudioPCMBuffer, AVAudioTime) -> Void)?
-    private var converter: AVAudioConverter?
+    @Published var audioLevel: Float = 0.0
 
     func startListening(_ onBuffer: @escaping (AVAudioPCMBuffer, AVAudioTime) -> Void) throws {
-        self.bufferHandler = onBuffer
-
-        // Configure audio session
         try session.setCategory(.playAndRecord,
                                 mode: .measurement,
                                 options: [.mixWithOthers, .allowBluetooth])
@@ -21,36 +20,10 @@ final class AudioManager: ObservableObject {
         let input = engine.inputNode
         let inputFormat = input.inputFormat(forBus: 0)
 
-        // Target format for ShazamKit: 44.1kHz, mono, float32
-        let desiredFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32,
-                                          sampleRate: 44100,
-                                          channels: 1,
-                                          interleaved: false)!
-
-        // Reuse a converter
-        self.converter = AVAudioConverter(from: inputFormat, to: desiredFormat)
-
-        // Install tap with smaller buffer size
         input.installTap(onBus: 0, bufferSize: 2048, format: inputFormat) { [weak self] buffer, when in
-            guard let self = self, let converter = self.converter else { return }
-
-            let outBuffer = AVAudioPCMBuffer(pcmFormat: desiredFormat,
-                                             frameCapacity: AVAudioFrameCount(buffer.frameCapacity))!
-
-            var error: NSError?
-            let inputBlock: AVAudioConverterInputBlock = { _, outStatus in
-                outStatus.pointee = .haveData
-                return buffer
-            }
-
-            converter.convert(to: outBuffer, error: &error, withInputFrom: inputBlock)
-
-            if let error = error {
-                print("Audio conversion error: \(error)")
-                return
-            }
-
-            onBuffer(outBuffer, when)
+            guard let self = self else { return }
+            self.calculateAudioLevel(from: buffer)
+            onBuffer(buffer, when)
         }
 
         try engine.start()
@@ -60,7 +33,31 @@ final class AudioManager: ObservableObject {
     func stop() {
         engine.inputNode.removeTap(onBus: 0)
         engine.stop()
+        audioLevel = 0.0
         try? session.setActive(false)
         print("🛑 Audio engine stopped")
+    }
+    
+    private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) {
+        guard let channelData = buffer.floatChannelData else { return }
+        let frameLength = Int(buffer.frameLength)
+        
+        // Calculate root mean square (RMS)
+        var magnitude: Float = 0
+        vDSP_rmsqv(channelData[0], 1, &magnitude, vDSP_Length(frameLength))
+        
+        // Clamp the value to a 0-1 range
+        let clampedMagnitude = max(0, min(1, magnitude))
+        
+        // Increasing the amplification for more sensitivity
+        let amplificationFactor: Float = 40.0
+        let amplified = clampedMagnitude * amplificationFactor
+        
+        // Smooth the value to prevent jitter
+        let smoothedLevel = self.levelSmoother.push(Double(amplified))
+        
+        DispatchQueue.main.async {
+            self.audioLevel = Float(smoothedLevel)
+        }
     }
 }
