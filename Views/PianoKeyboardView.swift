@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PianoKeyboardView: View {
-    // Provide active MIDI note numbers (e.g., 60 for C4)
+    // To provide active MIDI note numbers (e.g., 60 for C4)
     var activeMIDINotes: Set<Int> = []
     
     private let whiteKeys = [0,2,4,5,7,9,11] // pitch classes
