@@ -1,60 +1,42 @@
-//
-//  SplashScreenView.swift
-//  Scout
-//
-//  Created by Suryanandan Babbar on 27/08/25.
-//
-
 import SwiftUI
 
 struct SplashScreenView: View {
-    @State private var showMainView = false
-    @State private var opacity = 0.0
-    @State private var scale: CGFloat = 0.8
-    @State private var fadeOut = false
+    @State private var isActive = false
+    @State private var size = 0.8
+    @State private var opacity = 0.5
+
+    // Match the color scheme from ContentView
+    private let backgroundColor = Color(red: 0.05, green: 0.0, blue: 0.1)
+    private let accentColor = Color.purple
 
     var body: some View {
-        ZStack {
-            if showMainView {
-                ContentView()
-                    .transition(.opacity) // smooth fade-in for main view
-            } else {
-                Color.white.ignoresSafeArea()
-
-                VStack {
+        if isActive {
+            ContentView()
+        } else {
+            ZStack {
+                backgroundColor.ignoresSafeArea()
+                
+                VStack(spacing: 20) {
                     Image(systemName: "pianokeys.inverse")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 160, height: 160)
-                        .scaleEffect(scale)
-                        .opacity(opacity)
-                        .onAppear {
-                            withAnimation(.easeIn(duration: 1.0)) {
-                                self.opacity = 1.0
-                                self.scale = 1.0
-                            }
-                        }
-
-                    Text("Scout")
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundColor(.black)
-                        .opacity(opacity)
-                        .padding(.top, 20)
+                        .font(.system(size: 120, weight: .light))
                 }
-                .opacity(fadeOut ? 0 : 1) // fade out logo and text
-            }
-        }
-        .onAppear {
-            // Animate fade-in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation(.easeOut(duration: 1.0)) {
-                    self.fadeOut = true
+                .foregroundColor(.white)
+                .shadow(color: accentColor.opacity(0.8), radius: 20, x: 0, y: 0)
+                .scaleEffect(size)
+                .opacity(opacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 1.5)) {
+                        self.size = 1.0
+                        self.opacity = 1.0
+                    }
                 }
             }
-            // Switch to main view
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                withAnimation(.easeIn(duration: 0.5)) {
-                    self.showMainView = true
+            .onAppear {
+                // Waiting for 2.5 seconds then switching to ContentView
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    withAnimation {
+                        self.isActive = true
+                    }
                 }
             }
         }
@@ -64,4 +46,3 @@ struct SplashScreenView: View {
 #Preview {
     SplashScreenView()
 }
-
