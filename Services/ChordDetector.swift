@@ -37,7 +37,7 @@ final class ChordDetector: ObservableObject {
         let frames = Int(buffer.frameLength)
         if frames < n { return }
         
-        // Take last n samples to form a frame
+        // Taking last n samples to form a frame
         let ptr = UnsafeBufferPointer(start: data + frames - n, count: n)
         var frame = Array(ptr)
         
@@ -148,7 +148,7 @@ final class ChordDetector: ObservableObject {
             runningSum += diff[tau]
             cmnd[tau] = diff[tau] * Float(tau) / (runningSum == 0 ? 1 : runningSum)
         }
-        // Pick first dip below threshold
+        // Picking first dip below threshold
         let thresh: Float = 0.1
         var tauEstimate: Int? = nil
         for tau in minLag...maxLag {
