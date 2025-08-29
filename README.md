@@ -1,4 +1,4 @@
-# Scout (iOS, SwiftUI + ShazamKit + DSP)
+# Scout (iOS, SwiftUI + DSP)
 
 **What it does**
 - Listens via the microphone.
